@@ -1,0 +1,19 @@
+{
+  "id": "API_Usage_Graph",
+  "title": "API Usage Graph",
+  "type": "gadget",
+  "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+  "data": {
+    "url": "store://gadget/API_Usage_Graph/index.xml"
+  },
+  "styles": {
+    "borders": false,
+    "title": false
+  },
+  "listen": {
+    "sdf.dateRange": {
+      "type": "date-range",
+      "description": "This notifies the selected date range."
+    }
+  }
+}

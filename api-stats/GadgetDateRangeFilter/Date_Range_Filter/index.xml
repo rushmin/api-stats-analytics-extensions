@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+
+-->
+<Module>
+    <ModulePrefs title="Stats Date Filter" description="Stats Date Filter Gadget" height="150">
+        <!-- This is used to import the pubsub-2 feature -->
+        <Require feature="pubsub-2">
+            <!-- This is used to define the channel that the publisher will use to publish messages.
+            In this case the channel has been named my-channel.
+            publish="true" needs to be set to define the gadget as a publisher gadget. -->
+            <Param name="topics">
+                <![CDATA[
+                    <Topic title="sdf.dateRange" name="sdf.dateRange" publish="true"/>
+                ]]>
+            </Param>
+        </Require>
+        <Require feature="dynamic-height"/>
+    </ModulePrefs>
+    <Content type="html">
+        <![CDATA[
+        <head>
+            <meta charset="utf-8">
+
+            <!-- Include Required Prerequisites -->
+            <script type="text/javascript" src="js/jquery.min.js"></script>
+            <script type="text/javascript" src="js/moment.min.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+            <!-- Include Date Range Picker -->
+            <script type="text/javascript" src="js/daterangepicker.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+
+            <script language="javascript" type="text/javascript" src="js/date-range-filter.js"></script>
+        </head>
+        <body >
+
+          <div id="stat-range" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+            <span></span> <b class="caret"></b>
+          </div>
+
+        </body>
+        ]]>
+    </Content>
+</Module>

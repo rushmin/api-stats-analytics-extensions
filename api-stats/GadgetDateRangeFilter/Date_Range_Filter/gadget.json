@@ -1,0 +1,19 @@
+{
+  "id": "Date_Range_Filter",
+  "title": "Date Range Filter",
+  "type": "gadget",
+  "thumbnail": "store://gadget/Date_Range_Filter/index.png",
+  "data": {
+    "url": "store://gadget/Date_Range_Filter/index.xml"
+  },
+  "styles": {
+    "borders": false,
+    "title": false
+  },
+  "notify": {
+    "sdf.dateRange": {
+      "type": "date-range",
+      "description": "This notifies the selected date range."
+    }
+  }
+}

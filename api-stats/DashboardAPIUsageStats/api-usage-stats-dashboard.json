@@ -1,0 +1,93 @@
+{
+  "id": "api-usage-stats-dashboard",
+  "title": "API Usage Stats Dashboard",
+  "description": "This dashboard is to show API usage statistics.",
+  "permissions": {
+    "viewers": [
+      "Internal/everyone"
+    ],
+    "editors": [
+      "Internal/everyone"
+    ]
+  },
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "layout": {
+        "id": "single-column",
+        "title": "Single Column",
+        "description": "This is a layout generated through single-column.io",
+        "thumbnail": "store://layout/single-column/index.png",
+        "url": "store://layout/single-column/index.hbs",
+        "content": "<!--\n\n Licensed to the Apache Software Foundation (ASF) under one\n or more contributor license agreements.  See the NOTICE file\n distributed with this work for additional information\n regarding copyright ownership.  The ASF licenses this file\n to you under the Apache License, Version 2.0 (the\n \"License\"); you may not use this file except in compliance\n with the License.  You may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\n Unless required by applicable law or agreed to in writing,\n software distributed under the License is distributed on an\n \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n KIND, either express or implied.  See the License for the\n specific language governing permissions and limitations\n under the License.\n\n-->\n<div class=\"container\">\n<div class=\"row\">\n    <div id=\"a\" class=\"col-md-12 ues-component-box\"></div>\n    <div id=\"b\" class=\"col-md-12 ues-component-box\"></div>\n    <div id=\"c\" class=\"col-md-12 ues-component-box\"></div>\n</div>\n</div>\n"
+      },
+      "isanon": false,
+      "content": {
+        "default": {
+          "a": [
+            {
+              "id": "ehng97cyk3kxogvi",
+              "content": {
+                "id": "Date_Range_Filter",
+                "title": "Date Range Filter",
+                "type": "gadget",
+                "thumbnail": "store://gadget/Date_Range_Filter/index.png",
+                "data": {
+                  "url": "store://gadget/Date_Range_Filter/index.xml"
+                },
+                "styles": {
+                  "borders": false,
+                  "title": false
+                },
+                "notify": {
+                  "sdf.dateRange": {
+                    "type": "date-range",
+                    "description": "This notifies the selected date range."
+                  }
+                },
+                "settings": {}
+              }
+            }
+          ],
+          "b": [
+            {
+              "id": "q1pf6m8s5bq08uxr",
+              "content": {
+                "id": "API_Usage_Graph",
+                "title": "API Usage Graph",
+                "type": "gadget",
+                "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+                "data": {
+                  "url": "store://gadget/API_Usage_Graph/index.xml"
+                },
+                "styles": {
+                  "borders": false,
+                  "title": false,
+                  "height":500,
+                },
+                "listen": {
+                  "sdf.dateRange": {
+                    "type": "date-range",
+                    "description": "This notifies the selected date range.",
+                    "on": [
+                      {
+                        "from": "ehng97cyk3kxogvi",
+                        "event": "sdf.dateRange"
+                      }
+                    ]
+                  }
+                },
+                "settings": {}
+              }
+            }
+          ]
+      }
+      }
+    }
+
+  ],
+  "landing": "home",
+  "isanon": false,
+  "isUserCustom": false
+}
