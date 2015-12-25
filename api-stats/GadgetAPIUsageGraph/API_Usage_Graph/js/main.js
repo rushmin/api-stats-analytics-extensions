@@ -11,25 +11,6 @@ var counter = 0;
 maxUpdateValue = gadgetConfig.maxUpdateValue;
 columns = gadgetConfig.columns;
 
-//if gadget type is realtime, treat it different!
-if(type === "realtime") {
-    //subscribe to websocket
-    subscribe(datasource.split(":")[0], datasource.split(":")[1], '10', gadgetConfig.domain,
-        onRealTimeEventSuccessRecieval, onRealTimeEventErrorRecieval, location.hostname, location.port,
-        'WEBSOCKET', "SECURED");
-} else {
-    //first, fetch datasource schema
-    // getColumns(datasource);
-
-    //load data immediately
-    fetchData(drawChart);
-
-    // then start periodic polling
-    setInterval(function() {
-        fetchData(drawChart);
-    },REFRESH_INTERVAL);
-}
-
 function getColumns(table) {
     console.log("Fetching table schema for table: " + table);
     var url = "/portal/apis/analytics?type=10&tableName=" + table;
@@ -52,38 +33,6 @@ function parseColumns(data) {
         });
         return columns;
     }
-};
-
-function fetchData(callback) {
-     //if previous operation is not completed, DO NOT fetch data
-    if(!dataLoaded) {
-        console.log("Waiting for data...");
-        return;
-    }
-    var timeFrom = "undefined";
-    var timeTo = "undefined";
-    var count = "undefined";
-    var request = {
-        type: 8,
-        tableName: datasource,
-        filter:filter,
-        timeFrom: timeFrom,
-        timeTo: timeTo,
-        start: 0,
-        count: count
-    };
-    $.ajax({
-        url: "/portal/apis/analytics",
-        method: "GET",
-        data: request,
-        contentType: "application/json",
-        success: function(data) {
-            if (callback != null) {
-                callback(makeRows(JSON.parse(data.message)));
-            }
-        }
-    });
-    dataLoaded=false;   //setting the latch to locked position so that we block data fetching until we receive the response from backend
 };
 
 function makeDataTable(data) {
@@ -125,46 +74,7 @@ function makeRows(data) {
     return rows;
 };
 
-function drawChart(data) {
 
-    var dataTable = ACME.makeDataTable(data, makeDataTable);
-    gadgetConfig.chartConfig.width = $("#placeholder").width();
-    gadgetConfig.chartConfig.height = $("#placeholder").height() - 65;
-    var chartType = gadgetConfig.chartConfig.chartType;
-    var xAxis = gadgetConfig.chartConfig.xAxis;
-    jQuery("#noChart").html("");
-    if (chartType === "bar" && dataTable.metadata.types[xAxis] === "N") {
-        dataTable.metadata.types[xAxis] = "C";
-    }
-
-    if(gadgetConfig.chartConfig.chartType==="tabular" || gadgetConfig.chartConfig.chartType==="singleNumber") {
-        gadgetConfig.chartConfig.height = $("#placeholder").height();
-        var chart = igviz.draw("#placeholder", gadgetConfig.chartConfig, dataTable);
-        chart.plot(dataTable.data);
-
-    } else if (gadgetConfig.chartConfig.chartType==="map") {
-        $("#placeholder").empty();
-        gadgetConfig.chartConfig.width = $("#placeholder").width();
-        gadgetConfig.chartConfig.height = $("#placeholder").height() + 20;
-        var chart = igviz.draw("#placeholder", gadgetConfig.chartConfig, dataTable);
-        chart.plot(dataTable.data);
-    } else {
-        var chart = igviz.setUp("#placeholder", gadgetConfig.chartConfig, dataTable);
-        chart.setXAxis({
-            "labelAngle": -35,
-            "labelAlign": "right",
-            "labelDy": 0,
-            "labelDx": 0,
-            "titleDy": 25
-        })
-            .setYAxis({
-                "titleDy": -30
-            })
-        chart.plot(dataTable.data);
-    }
-    //releasing the latch so that we can request data again from the backend.
-    dataLoaded=true;
-};
 
 
 //stuff required for realtime charting

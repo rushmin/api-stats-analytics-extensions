@@ -24,27 +24,73 @@
     <Script>
       CREATE TEMPORARY TABLE API_REQUEST_DATA USING CarbonAnalytics OPTIONS(tableName "ORG_WSO2_APIMGT_STATISTICS_REQUEST");
 
-      CREATE TEMPORARY TABLE API_REQUEST_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_SUMMARY",
-        schema "hour long,
+      CREATE TEMPORARY TABLE API_REQUEST_HOURLY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_HOURLY_SUMMARY",
+        schema "timeslot long,
         tenant_domain string,
         api_name string,
         api_version string,
         request_count int,
         error_count int",
-        primaryKeys "hour,tenant_domain,api_name,api_version"
+        primaryKeys "timeslot,tenant_domain,api_name,api_version"
       );
 
-      INSERT INTO TABLE API_REQUEST_SUMMARY
+      INSERT INTO TABLE API_REQUEST_HOURLY_SUMMARY
       SELECT
-      roundTimestamp(first(requestTime), "HOUR") AS hour,
+      roundTimestamp(first(requestTime), "HOUR") AS timeslot,
       tenantDomain AS tenant_domain,
       api AS api_name,
       version AS api_version,
       sum(request) AS request_count,
       0 AS error_count
-      FROM APIRequestData
+      FROM API_REQUEST_DATA
       GROUP BY
       roundTimestamp(requestTime, "HOUR"),tenantDomain,api,version;
+
+      CREATE TEMPORARY TABLE API_REQUEST_DAILY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_DAILY_SUMMARY",
+        schema "timeslot long,
+        tenant_domain string,
+        api_name string,
+        api_version string,
+        request_count int,
+        error_count int",
+        primaryKeys "timeslot,tenant_domain,api_name,api_version"
+      );
+
+      INSERT INTO TABLE API_REQUEST_DAILY_SUMMARY
+      SELECT
+      roundTimestamp(first(requestTime), "DATE") AS timeslot,
+      tenantDomain AS tenant_domain,
+      api AS api_name,
+      version AS api_version,
+      sum(request) AS request_count,
+      0 AS error_count
+      FROM API_REQUEST_DATA
+      GROUP BY
+      roundTimestamp(requestTime, "DATE"),tenantDomain,api,version;
+
+      CREATE TEMPORARY TABLE API_REQUEST_WEEKLY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_WEEKLY_SUMMARY",
+        schema "timeslot long,
+        tenant_domain string,
+        api_name string,
+        api_version string,
+        request_count int,
+        error_count int",
+        primaryKeys "timeslot,tenant_domain,api_name,api_version"
+      );
+
+      INSERT INTO TABLE API_REQUEST_WEEKLY_SUMMARY
+      SELECT
+      roundTimestamp(first(requestTime), "WEEK") AS timeslot,
+      tenantDomain AS tenant_domain,
+      api AS api_name,
+      version AS api_version,
+      sum(request) AS request_count,
+      0 AS error_count
+      FROM API_REQUEST_DATA
+      GROUP BY
+      roundTimestamp(requestTime, "WEEK"),tenantDomain,api,version;
+
+
     </Script>
     <CronExpression>29 * * * * ?</CronExpression>
 </Analytics>

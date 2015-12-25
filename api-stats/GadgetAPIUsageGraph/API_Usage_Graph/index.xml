@@ -52,6 +52,7 @@
            <link href="css/igviz.css" rel="stylesheet" type="text/css">
            <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
            <link href="css/d3.geomap.css" rel="stylesheet" type="text/css">
+           <link href="css/select2.min.css" rel="stylesheet" type="text/css">
            <script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.min.js"></script>
@@ -60,14 +61,15 @@
            <script language="javascript" type="text/javascript" src="js/gadgetconf.js"></script>
            <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
            <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/select2.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/acmeExt.js"></script>
            <script language="javascript" type="text/javascript" src="js/main.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.dependencies.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.min.js"></script>
-
        </head>
 
        <body>
+           <select id="api-list"></select>
            <div id="placeholder" class="demo-placeholder" style="height:90%"></div>
            <script language="javascript" type="text/javascript">
              if(jQuery("#placeholder").html() == ""){

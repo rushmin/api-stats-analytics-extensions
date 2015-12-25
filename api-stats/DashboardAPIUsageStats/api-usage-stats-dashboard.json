@@ -38,7 +38,8 @@
                 },
                 "styles": {
                   "borders": false,
-                  "title": false
+                  "title": false,
+                  "height":350,
                 },
                 "notify": {
                   "sdf.dateRange": {
@@ -64,7 +65,7 @@
                 "styles": {
                   "borders": false,
                   "title": false,
-                  "height":500,
+                  "height":550,
                 },
                 "listen": {
                   "sdf.dateRange": {

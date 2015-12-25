@@ -1,11 +1,19 @@
 var gadgetConfig = {
   "id": "API_Requests",
   "title": "API Requests",
-  "datasource": "ACME_API_REQUEST_SUMMARY",
+  "datasource": "ACME_API_REQUEST_DAILY_SUMMARY",
   "type": "batch",
   "columns": [
     {
-      "name": "hour",
+      "name": "timeslot",
+      "type": "STRING"
+    },
+    {
+      "name": "api_name",
+      "type": "STRING"
+    },
+    {
+      "name": "api_version",
       "type": "STRING"
     },
     {
@@ -15,9 +23,10 @@ var gadgetConfig = {
   ],
   "maxUpdateValue": 0,
   "chartConfig": {
-    "chartType": "bar",
-    "yAxis": 1,
+    "chartType": "line",
+    "yAxis": [3],
     "xAxis": 0,
+    "interpolationMode":"line"
   },
   "domain": "carbon.super"
 }
