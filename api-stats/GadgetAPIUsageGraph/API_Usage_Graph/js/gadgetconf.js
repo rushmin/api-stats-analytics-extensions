@@ -24,7 +24,7 @@ var gadgetConfig = {
   "maxUpdateValue": 0,
   "chartConfig": {
     "chartType": "line",
-    "yAxis": [3],
+    "yAxis": [1],
     "xAxis": 0,
     "interpolationMode":"line"
   },
