@@ -27,32 +27,6 @@
         "default": {
           "a": [
             {
-              "id": "ehng97cyk3kxogvi",
-              "content": {
-                "id": "Date_Range_Filter",
-                "title": "Date Range Filter",
-                "type": "gadget",
-                "thumbnail": "store://gadget/Date_Range_Filter/index.png",
-                "data": {
-                  "url": "store://gadget/Date_Range_Filter/index.xml"
-                },
-                "styles": {
-                  "borders": false,
-                  "title": false,
-                  "height":350,
-                },
-                "notify": {
-                  "sdf.dateRange": {
-                    "type": "date-range",
-                    "description": "This notifies the selected date range."
-                  }
-                },
-                "settings": {}
-              }
-            }
-          ],
-          "b": [
-            {
               "id": "q1pf6m8s5bq08uxr",
               "content": {
                 "id": "API_Usage_Graph",
@@ -66,18 +40,6 @@
                   "borders": false,
                   "title": false,
                   "height":550,
-                },
-                "listen": {
-                  "sdf.dateRange": {
-                    "type": "date-range",
-                    "description": "This notifies the selected date range.",
-                    "on": [
-                      {
-                        "from": "ehng97cyk3kxogvi",
-                        "event": "sdf.dateRange"
-                      }
-                    ]
-                  }
                 },
                 "settings": {}
               }

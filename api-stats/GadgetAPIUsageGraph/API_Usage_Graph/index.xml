@@ -48,11 +48,13 @@
         <head>
            <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
            <title>Bar Chart</title>
-           <link href="css/flot-graph.css" rel="stylesheet" type="text/css">
-           <link href="css/igviz.css" rel="stylesheet" type="text/css">
-           <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-           <link href="css/d3.geomap.css" rel="stylesheet" type="text/css">
-           <link href="css/select2.min.css" rel="stylesheet" type="text/css">
+           <link href="css/flot-graph.css" rel="stylesheet" type="text/css"/>
+           <link href="css/igviz.css" rel="stylesheet" type="text/css"/>
+           <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+           <link href="css/d3.geomap.css" rel="stylesheet" type="text/css"/>
+           <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
+           <link href="css/daterangepicker.css" type="text/css" rel="stylesheet"/>
+
            <script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.min.js"></script>
@@ -61,6 +63,7 @@
            <script language="javascript" type="text/javascript" src="js/gadgetconf.js"></script>
            <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
            <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/daterangepicker.js"></script>
            <script language="javascript" type="text/javascript" src="js/select2.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/acmeExt.js"></script>
            <script language="javascript" type="text/javascript" src="js/main.js"></script>
@@ -69,7 +72,18 @@
        </head>
 
        <body>
-           <select id="api-list"></select>
+         <div class="container">
+           <div class="row">
+             <div class="span3">
+              <select id="api-list"/>
+             </div>
+             <div id="stat-range" class="span3 offset2" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+               <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+               <span></span> <b class="caret"></b>
+             </div>
+           </div>
+         </div>
+
            <div id="placeholder" class="demo-placeholder" style="height:90%"></div>
            <script language="javascript" type="text/javascript">
              if(jQuery("#placeholder").html() == ""){

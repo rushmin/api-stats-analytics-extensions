@@ -7,29 +7,24 @@ ACME.apiList = new Array();
 
 ACME.apiName = "ALL";
 
-ACME.init = function(){
+ACME.setDateRange = function (startDate, endDate) {
 
-  gadgets.HubSettings.onConnect = function () {
-      gadgets.Hub.subscribe("sdf.dateRange", function (topic, data) {
-          ACME.dateRange.startDate = data.startDate.valueOf();
-          ACME.dateRange.endDate = data.endDate.valueOf();
+    ACME.dateRange.startDate = startDate.valueOf();
+    ACME.dateRange.endDate = endDate.valueOf();
 
-          var duration = moment.duration(data.endDate - data.startDate).asDays();
+    var duration = moment.duration(endDate - startDate).asDays();
 
-          if(duration > 30){
-            ACME.dateRange.intervalType = "weeks";
-          }else if(duration >= 3){
-            ACME.dateRange.intervalType = "days";
-          }else{
-            ACME.dateRange.intervalType = "hours";
-          }
+    if(duration > 30){
+      ACME.dateRange.intervalType = "weeks";
+    }else if(duration >= 3){
+      ACME.dateRange.intervalType = "days";
+    }else{
+      ACME.dateRange.intervalType = "hours";
+    }
 
-          ACME.fetchData();
+    ACME.fetchData();
 
-          console.log("Start date : " + data.startDate + " End date : " + data.endDate);
-      });
-  };
-}
+};
 
 ACME.fetchData = function () {
      //if previous operation is not completed, DO NOT fetch data
@@ -285,8 +280,6 @@ ACME.DataTranformer.prototype.transform = function () {
 
 };
 
-ACME.init();
-
 $(document).ready(function() {
 
   var apiListDropdown = $("#api-list").select2({
@@ -297,5 +290,28 @@ $(document).ready(function() {
     ACME.apiName = $('#api-list').val();
     ACME.drawChart();
   });
+
+  $('#stat-range').daterangepicker({
+      ranges: {
+         'Today': [moment(), moment()],
+         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+         'This Month': [moment().startOf('month'), moment().endOf('month')],
+         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      }
+  });
+
+  $('#stat-range').on('apply.daterangepicker', handleDateChange);
+
+  function handleDateChange(event, picker){
+    updateLabel(picker.startDate, picker.endDate);
+    ACME.setDateRange(picker.startDate, picker.endDate);
+  }
+
+  function updateLabel(start, end){
+    $('#stat-range span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+  }
+
 
 });
