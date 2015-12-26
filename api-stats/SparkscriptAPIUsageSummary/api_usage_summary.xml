@@ -22,7 +22,10 @@
 <Analytics>
     <Name>api_usage_summary</Name>
     <Script>
+
       CREATE TEMPORARY TABLE API_REQUEST_DATA USING CarbonAnalytics OPTIONS(tableName "ORG_WSO2_APIMGT_STATISTICS_REQUEST");
+
+      CREATE TEMPORARY TABLE API_TRACE_DATA USING CarbonAnalytics OPTIONS(tableName "ACME_API_TRACE_1");
 
       CREATE TEMPORARY TABLE API_REQUEST_HOURLY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_HOURLY_SUMMARY",
         schema "timeslot long,
@@ -36,15 +39,38 @@
 
       INSERT INTO TABLE API_REQUEST_HOURLY_SUMMARY
       SELECT
-      roundTimestamp(first(requestTime), "HOUR") AS timeslot,
+      requests.timeslot as timeslot,
+      requests.tenant_domain AS tenant_domain,
+      requests.api_name AS api_name,
+      requests.api_version AS api_version,
+      requests.request_count as request_count,
+      COALESCE(errors.error_count, 0) as error_count
+      FROM
+      (
+      SELECT roundTimestamp(first(requestTime), "HOUR") AS timeslot,
       tenantDomain AS tenant_domain,
       api AS api_name,
       version AS api_version,
-      sum(request) AS request_count,
-      0 AS error_count
+      first(context) as api_context,
+      sum(request) AS request_count
       FROM API_REQUEST_DATA
       GROUP BY
-      roundTimestamp(requestTime, "HOUR"),tenantDomain,api,version;
+      roundTimestamp(requestTime, "HOUR"),tenantDomain,api,version
+      ) requests
+      LEFT JOIN
+      (
+      SELECT
+      roundTimestamp(first(timestamp), "HOUR") AS timeslot,
+      first(context) as api_context,
+      count(*) AS error_count
+      FROM API_TRACE_DATA
+      WHERE
+      origin = "APIM" AND error = "TRUE"
+      GROUP BY
+      roundTimestamp(timestamp, "HOUR"),context
+      ) errors
+      ON
+      requests.api_context = errors.api_context AND requests.timeslot = errors.timeslot;
 
       CREATE TEMPORARY TABLE API_REQUEST_DAILY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_DAILY_SUMMARY",
         schema "timeslot long,
@@ -58,15 +84,38 @@
 
       INSERT INTO TABLE API_REQUEST_DAILY_SUMMARY
       SELECT
-      roundTimestamp(first(requestTime), "DATE") AS timeslot,
+      requests.timeslot as timeslot,
+      requests.tenant_domain AS tenant_domain,
+      requests.api_name AS api_name,
+      requests.api_version AS api_version,
+      requests.request_count as request_count,
+      COALESCE(errors.error_count, 0) as error_count
+      FROM
+      (
+      SELECT roundTimestamp(first(requestTime), "DATE") AS timeslot,
       tenantDomain AS tenant_domain,
       api AS api_name,
       version AS api_version,
-      sum(request) AS request_count,
-      0 AS error_count
+      first(context) as api_context,
+      sum(request) AS request_count
       FROM API_REQUEST_DATA
       GROUP BY
-      roundTimestamp(requestTime, "DATE"),tenantDomain,api,version;
+      roundTimestamp(requestTime, "DATE"),tenantDomain,api,version
+      ) requests
+      LEFT JOIN
+      (
+      SELECT
+      roundTimestamp(first(timestamp), "DATE") AS timeslot,
+      first(context) as api_context,
+      count(*) AS error_count
+      FROM API_TRACE_DATA
+      WHERE
+      origin = "APIM" AND error = "TRUE"
+      GROUP BY
+      roundTimestamp(timestamp, "DATE"),context
+      ) errors
+      ON
+      requests.api_context = errors.api_context AND requests.timeslot = errors.timeslot;
 
       CREATE TEMPORARY TABLE API_REQUEST_WEEKLY_SUMMARY USING CarbonAnalytics OPTIONS (tableName "ACME_API_REQUEST_WEEKLY_SUMMARY",
         schema "timeslot long,
@@ -80,15 +129,38 @@
 
       INSERT INTO TABLE API_REQUEST_WEEKLY_SUMMARY
       SELECT
-      roundTimestamp(first(requestTime), "WEEK") AS timeslot,
+      requests.timeslot as timeslot,
+      requests.tenant_domain AS tenant_domain,
+      requests.api_name AS api_name,
+      requests.api_version AS api_version,
+      requests.request_count as request_count,
+      COALESCE(errors.error_count, 0) as error_count
+      FROM
+      (
+      SELECT roundTimestamp(first(requestTime), "WEEK") AS timeslot,
       tenantDomain AS tenant_domain,
       api AS api_name,
       version AS api_version,
-      sum(request) AS request_count,
-      0 AS error_count
+      first(context) as api_context,
+      sum(request) AS request_count
       FROM API_REQUEST_DATA
       GROUP BY
-      roundTimestamp(requestTime, "WEEK"),tenantDomain,api,version;
+      roundTimestamp(requestTime, "WEEK"),tenantDomain,api,version
+      ) requests
+      LEFT JOIN
+      (
+      SELECT
+      roundTimestamp(first(timestamp), "WEEK") AS timeslot,
+      first(context) as api_context,
+      count(*) AS error_count
+      FROM API_TRACE_DATA
+      WHERE
+      origin = "APIM" AND error = "TRUE"
+      GROUP BY
+      roundTimestamp(timestamp, "WEEK"),context
+      ) errors
+      ON
+      requests.api_context = errors.api_context AND requests.timeslot = errors.timeslot;
 
 
     </Script>
