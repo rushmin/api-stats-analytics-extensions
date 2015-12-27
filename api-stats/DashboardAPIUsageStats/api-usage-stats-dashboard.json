@@ -39,7 +39,8 @@
                 "styles": {
                   "borders": false,
                   "title": false,
-                  "height":550,
+                  "width":500,
+                  "height":600
                 },
                 "settings": {}
               }

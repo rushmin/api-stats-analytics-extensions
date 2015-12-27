@@ -311,7 +311,8 @@
 }
 
 /*  Larger Screen Styling */
-@media (min-width: 564px) {
+
+/* Removed media query as hack to fix a shindig bug http://osdir.com/ml/general/2015-07/msg01861.html */
   .daterangepicker{
     width: auto;
   }
@@ -362,9 +363,7 @@
   .daterangepicker .calendar {
     float: left;
   }
-}
 
-@media (min-width: 730px) {
   .daterangepicker .ranges {
     width: auto;
     float: left;
@@ -372,4 +371,3 @@
   .daterangepicker .calendar.left {
     clear: none;
   }
-}

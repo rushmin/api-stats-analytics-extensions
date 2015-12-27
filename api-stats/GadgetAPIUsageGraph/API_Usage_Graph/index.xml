@@ -50,13 +50,13 @@
            <title>Bar Chart</title>
            <link href="css/flot-graph.css" rel="stylesheet" type="text/css"/>
            <link href="css/igviz.css" rel="stylesheet" type="text/css"/>
-           <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+           <link href="css/bootstrap.min.custom.css" rel="stylesheet" type="text/css"/>
            <link href="css/d3.geomap.css" rel="stylesheet" type="text/css"/>
-           <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
            <link href="css/daterangepicker.css" type="text/css" rel="stylesheet"/>
 
            <script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script>
-           <script language="javascript" type="text/javascript" src="js/jquery.js"></script>
+           <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/vega.js"></script>
            <script language="javascript" type="text/javascript" src="../../../../js/igviz.js"></script>
@@ -64,7 +64,6 @@
            <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
            <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/daterangepicker.js"></script>
-           <script language="javascript" type="text/javascript" src="js/select2.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/main.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.dependencies.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.min.js"></script>
@@ -73,22 +72,30 @@
        <body>
          <div class="container">
            <div class="row">
-             <div class="span3">
-              <select id="api-list"/>
+             <div class="col-md-5 col-md-offset-1">
+               <label>Select a date range</label>
+               <div id="dateRange" style="padding: 5px 10px; border: 1px solid #ccc;">
+                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                 <span></span> <b class="caret"></b>
+               </div>
              </div>
-             <div id="stat-range" class="span3 offset2" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
-               <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-               <span></span> <b class="caret"></b>
+             <div class="col-md-4 col-md-offset-2">
+               <div class="form-group">
+                <label for="apiList">Select an API</label>
+                <select class="form-control" id="apiList"/>
+               </div>
              </div>
+           </div>
+           <div class="row">
+             <div id="placeholder" class="demo-placeholder" style="height:90%"></div>
            </div>
          </div>
 
-           <div id="placeholder" class="demo-placeholder" style="height:90%"></div>
-           <script language="javascript" type="text/javascript">
-             if(jQuery("#placeholder").html() == ""){
-               jQuery("#placeholder").append('<div id="noChart"><table><tr><td style="padding:30px 20px 0px 20px"><img src="../../portal/images/noEvents.png" align="left" style="width:24;height:24"/></td><td><br/><b><p><br/> Data is not available for plotting</p></b></td></tr><tr><td></td><td><p>The chart will be loaded once the dashboard receives events</p><td/></tr></table></div>');
-             }
-           </script>
+         <script language="javascript" type="text/javascript">
+           if(jQuery("#placeholder").html() == ""){
+             jQuery("#placeholder").append('<div id="noChart"><table><tr><td style="padding:30px 20px 0px 20px"><img src="../../portal/images/noEvents.png" align="left" style="width:24;height:24"/></td><td><br/><b><p><br/> Data is not available for plotting</p></b></td></tr><tr><td></td><td><p>The chart will be loaded once the dashboard receives events</p><td/></tr></table></div>');
+           }
+         </script>
        </body>
        </html>
         ]]>
