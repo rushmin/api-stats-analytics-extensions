@@ -29,22 +29,45 @@
             {
               "id": "q1pf6m8s5bq08uxr",
               "content": {
-                "id": "API_Usage_Graph",
-                "title": "API Usage",
+                "id": "Requests_Graph",
+                "title": "Requests",
                 "type": "gadget",
                 "thumbnail": "store://gadget/API_Usage_Graph/index.png",
                 "data": {
                   "url": "store://gadget/API_Usage_Graph/index.xml"
                 },
                 "styles": {
-                  "borders": false,
-                  "title": false,
-                  "height":700
+                  "borders": true,
+                  "title": true,
+                  "height":700,
+                  "titlePosition":"center"
+                },
+                "settings": {}
+              }
+            }
+          ],
+          "b": [
+            {
+              "id": "r1pf6m8s5bq08uxs",
+              "content": {
+                "id": "Errors_Graph",
+                "title": "Errors",
+                "type": "gadget",
+                "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+                "data": {
+                  "url": "store://gadget/API_Usage_Graph/index.xml"
+                },
+                "styles": {
+                  "borders": true,
+                  "title": true,
+                  "height":700,
+                  "titlePosition":"center"
                 },
                 "settings": {}
               }
             }
           ]
+
       }
       }
     }
