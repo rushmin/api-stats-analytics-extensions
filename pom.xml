@@ -26,8 +26,8 @@
             <phase>process-resources</phase>
             <configuration>
               <tasks>
-                <zip destfile="target/api-stats.car">
-                  <zipfileset dir="api-stats"/>
+                <zip destfile="target/api-stats-analytics-extensions.car">
+                  <zipfileset dir="api-stats-analytics-extensions-artifacts"/>
                 </zip>
               </tasks>
             </configuration>
