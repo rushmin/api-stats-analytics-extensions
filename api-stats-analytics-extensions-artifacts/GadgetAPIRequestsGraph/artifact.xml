@@ -19,6 +19,6 @@
  under the License.
 
 -->
-<artifact name="GadgetAPIUsageGraph" version="1.0.0" type="dashboards/gadget" serverRole="DataAnalyticsServer">
-    <file>API_Usage_Graph</file>
+<artifact name="GadgetAPIRequestsGraph" version="1.0.0" type="dashboards/gadget" serverRole="DataAnalyticsServer">
+    <file>API_Requests_Graph</file>
 </artifact>

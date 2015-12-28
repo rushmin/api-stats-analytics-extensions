@@ -20,28 +20,9 @@
 
 -->
 <Module>
-    <ModulePrefs title="API Usage Graph" description="API Usage Graph Gadget" height="150">
-        <!-- This is used to import the pubsub-2 feature -->
-        <Require feature="pubsub-2">
-            <!-- This is used to define the channel that the publisher will use to publish messages.
-            In this case the channel has been named my-channel.
-            publish="true" needs to be set to define the gadget as a publisher gadget. -->
-            <Param name="topics">
-                <![CDATA[
-                <Topic title="sdf.dateRange" name="sdf.dateRange" subscribe="true"/>
-                ]]>
-            </Param>
-        </Require>
+    <ModulePrefs title="API Requests Graph" description="API Requests Graph Gadget" height="150">
         <Require feature="dynamic-height"/>
     </ModulePrefs>
-    <UserPref name="dataSource"
-              display_name="Data Source"
-              default_value="/portal/gadgets/bar-chart/datasource/dataFile4.jag">
-    </UserPref>
-    <UserPref name="updateGraph"
-              display_name="Update Interval (s)"
-              default_value="No">
-    </UserPref>
     <Content type="html">
         <![CDATA[
         <html>

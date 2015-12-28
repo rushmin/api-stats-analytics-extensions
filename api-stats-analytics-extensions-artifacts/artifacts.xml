@@ -42,7 +42,7 @@
                     serverRole="DataAnalyticsServer"/> -->
         <dependency artifact="GadgetDateRangeFilter" version="1.0.0" include="true"
                     serverRole="DataAnalyticsServer"/>
-        <dependency artifact="GadgetAPIUsageGraph" version="1.0.0" include="true"
+        <dependency artifact="GadgetAPIRequestsGraph" version="1.0.0" include="true"
                                 serverRole="DataAnalyticsServer"/>
         <dependency artifact="SparkscriptAPIUsageSummary" version="1.0.0" include="true"
                                                         serverRole="DataAnalyticsServer"/>
