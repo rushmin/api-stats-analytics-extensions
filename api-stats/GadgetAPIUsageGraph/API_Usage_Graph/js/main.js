@@ -112,7 +112,7 @@ ACME.drawChart = function() {
 
     var dataTable = ACME.makeDataTable();
 
-    jQuery("#noChart").html("");
+    $("#noChart").css("display","none");
 
     var chart = igviz.setUp("#placeholder", ACME.getChartConfig(), dataTable);
 
@@ -202,14 +202,9 @@ ACME.defineColumns = function(){
   return columns;
 
 }
+
 ACME.getDataSouce = function(){
-
-  var dataSources = {"hours":"ACME_API_REQUEST_HOURLY_SUMMARY",
-                      "days":"ACME_API_REQUEST_DAILY_SUMMARY",
-                      "weeks":"ACME_API_REQUEST_WEEKLY_SUMMARY"}
-
-  return dataSources[ACME.dateRange.intervalType];
-
+  return gadgetConfig.datasources[ACME.dateRange.intervalType];
 }
 
 ACME.DataTranformer = function(data){
@@ -397,17 +392,7 @@ $(document).ready(function() {
     ACME.drawChart();
   });
 
-  $('#dateRange').daterangepicker({
-      opens: "right",
-      ranges: {
-         'Today': [moment(), moment()],
-         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-         'This Month': [moment().startOf('month'), moment().endOf('month')],
-         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      }
-  });
+  $('#dateRange').daterangepicker(gadgetConfig.dateRangePickerConfig);
 
   $('#dateRange').on('apply.daterangepicker', handleDateChange);
 

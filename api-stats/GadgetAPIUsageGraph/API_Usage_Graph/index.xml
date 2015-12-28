@@ -60,13 +60,13 @@
            <script language="javascript" type="text/javascript" src="js/d3.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/vega.js"></script>
            <script language="javascript" type="text/javascript" src="../../../../js/igviz.js"></script>
-           <script language="javascript" type="text/javascript" src="js/gadgetconf.js"></script>
-           <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
-           <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
-           <script language="javascript" type="text/javascript" src="js/daterangepicker.js"></script>
-           <script language="javascript" type="text/javascript" src="js/main.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.dependencies.min.js"></script>
            <script language="javascript" type="text/javascript" src="js/d3.geomap.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/daterangepicker.js"></script>
+           <script language="javascript" type="text/javascript" src="js/gadgetconf.js"></script>
+           <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
+           <script language="javascript" type="text/javascript" src="js/main.js"></script>
        </head>
 
        <body>
@@ -93,7 +93,7 @@
 
          <script language="javascript" type="text/javascript">
            if(jQuery("#placeholder").html() == ""){
-             jQuery("#placeholder").append('<div id="noChart"><table><tr><td style="padding:30px 20px 0px 20px"><img src="../../portal/images/noEvents.png" align="left" style="width:24;height:24"/></td><td><br/><b><p><br/> Data is not available for plotting</p></b></td></tr><tr><td></td><td><p>The chart will be loaded once the dashboard receives events</p><td/></tr></table></div>');
+             jQuery("#placeholder").append('<div id="noChart" class="text-center" style="height:100%; width=100%;"><p style="position:relative; top:50%; transform:translateY(-50%);color:#B5ACAC;font-size:36;">Please select a date range</p></div>');
            }
          </script>
        </body>
