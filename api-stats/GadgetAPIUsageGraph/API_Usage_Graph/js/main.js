@@ -143,7 +143,7 @@ ACME.getChartConfig = function(){
                };
 
   config.width = $("#placeholder").width();
-  config.height = $("#placeholder").height() - 65;
+  config.height = $("#placeholder").height() - 100;
 
   if(ACME.selectedAPI == "ALL"){
     config.yAxis = new Array(ACME.apiList.length).fill(0).map(function(value, i){return i+1})

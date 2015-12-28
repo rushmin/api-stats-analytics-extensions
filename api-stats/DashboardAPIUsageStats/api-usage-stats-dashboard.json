@@ -30,7 +30,7 @@
               "id": "q1pf6m8s5bq08uxr",
               "content": {
                 "id": "API_Usage_Graph",
-                "title": "API Usage Graph",
+                "title": "API Usage",
                 "type": "gadget",
                 "thumbnail": "store://gadget/API_Usage_Graph/index.png",
                 "data": {
@@ -39,8 +39,7 @@
                 "styles": {
                   "borders": false,
                   "title": false,
-                  "width":500,
-                  "height":600
+                  "height":700
                 },
                 "settings": {}
               }
