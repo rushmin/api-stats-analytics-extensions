@@ -20,7 +20,7 @@
 
 -->
 <artifacts>
-    <artifact name="api-stats-dashboard-extensions" version="1.0.0" type="carbon/application">
+    <artifact name="api-stats-analytics-extensions" version="1.0.0" type="carbon/application">
         <!-- <dependency artifact="EventstreamMemberInfo" version="1.0.0" include="true" serverRole="DataAnalyticsServer"/>
         <dependency artifact="EventstreamMemberLifecycle" version="1.0.0" include="true"
                     serverRole="DataAnalyticsServer"/>
