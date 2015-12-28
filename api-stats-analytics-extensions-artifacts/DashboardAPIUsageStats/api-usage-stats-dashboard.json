@@ -32,9 +32,9 @@
                 "id": "Requests_Graph",
                 "title": "Requests",
                 "type": "gadget",
-                "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+                "thumbnail": "store://gadget/API_Requests_Graph/index.png",
                 "data": {
-                  "url": "store://gadget/API_Usage_Graph/index.xml"
+                  "url": "store://gadget/API_Requests_Graph/index.xml"
                 },
                 "styles": {
                   "borders": true,
@@ -53,9 +53,9 @@
                 "id": "Errors_Graph",
                 "title": "Errors",
                 "type": "gadget",
-                "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+                "thumbnail": "store://gadget/API_Erros_Graph/index.png",
                 "data": {
-                  "url": "store://gadget/API_Usage_Graph/index.xml"
+                  "url": "store://gadget/API_Errors_Graph/index.xml"
                 },
                 "styles": {
                   "borders": true,

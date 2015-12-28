@@ -19,17 +19,6 @@
  under the License.
 
 -->
-<artifacts>
-    <artifact name="api-stats-analytics-extensions" version="1.0.0" type="carbon/application">
-
-        <dependency artifact="GadgetAPIRequestsGraph" version="1.0.0" include="true"
-                                serverRole="DataAnalyticsServer"/>
-        <dependency artifact="GadgetAPIErrorsGraph" version="1.0.0" include="true"
-                                                        serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="SparkscriptAPIUsageSummary" version="1.0.0" include="true"
-                                                        serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="DashboardAPIUsageStats" version="1.0.0" include="true" serverRole="DataAnalyticsServer"/>
-    </artifact>
-</artifacts>
+<artifact name="GadgetAPIErrorsGraph" version="1.0.0" type="dashboards/gadget" serverRole="DataAnalyticsServer">
+    <file>API_Errors_Graph</file>
+</artifact>

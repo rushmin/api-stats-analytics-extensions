@@ -1,0 +1,15 @@
+{
+  "id": "API_Errors_Graph",
+  "title": "API Errors Graph",
+  "type": "gadget",
+  "thumbnail": "store://gadget/API_Usage_Graph/index.png",
+  "data": {
+    "url": "store://gadget/API_Usage_Graph/index.xml"
+  },
+  "styles": {
+    "borders": true,
+    "title": true,
+    "height":700,
+    "titlePosition":"center"
+  }
+}

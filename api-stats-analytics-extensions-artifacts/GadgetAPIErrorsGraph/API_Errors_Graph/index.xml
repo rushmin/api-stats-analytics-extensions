@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+
+-->
+<Module>
+    <ModulePrefs title="API Errors Graph" description="API Errors Graph Gadget" height="150">
+        <Require feature="dynamic-height"/>
+    </ModulePrefs>
+    <Content type="html">
+        <![CDATA[
+        <html>
+        <head>
+           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+           <title>Bar Chart</title>
+           <link href="css/flot-graph.css" rel="stylesheet" type="text/css"/>
+           <link href="css/igviz.css" rel="stylesheet" type="text/css"/>
+           <link href="css/bootstrap.min.custom.css" rel="stylesheet" type="text/css"/>
+           <link href="css/d3.geomap.css" rel="stylesheet" type="text/css"/>
+           <link href="css/daterangepicker.css" type="text/css" rel="stylesheet"/>
+
+           <script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/d3.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/vega.js"></script>
+           <script language="javascript" type="text/javascript" src="../../../../js/igviz.js"></script>
+           <script language="javascript" type="text/javascript" src="js/d3.geomap.dependencies.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/d3.geomap.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/moment.min.js"></script>
+           <script language="javascript" type="text/javascript" src="js/daterangepicker.js"></script>
+           <script language="javascript" type="text/javascript" src="js/gadgetconf.js"></script>
+           <script language="javascript" type="text/javascript" src="js/outputAdapterUiLibrary.js"></script>
+           <script language="javascript" type="text/javascript" src="js/main.js"></script>
+       </head>
+
+       <body>
+         <div class="container">
+           <div class="row">
+             <div class="col-md-5 col-md-offset-1">
+               <label>Select a date range</label>
+               <div id="dateRange" style="padding: 5px 10px; border: 1px solid #ccc;">
+                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                 <span></span> <b class="caret"></b>
+               </div>
+             </div>
+             <div class="col-md-4 col-md-offset-2">
+               <div class="form-group">
+                <label for="apiList">Select an API</label>
+                <select class="form-control" id="apiList"/>
+               </div>
+             </div>
+           </div>
+           <div class="row">
+             <div id="placeholder" class="demo-placeholder" style="height:88.905547226%"></div>
+           </div>
+         </div>
+
+         <script language="javascript" type="text/javascript">
+           if(jQuery("#placeholder").html() == ""){
+             jQuery("#placeholder").append('<div id="noChart" class="text-center" style="height:100%; width=100%;"><p style="position:relative; top:50%; transform:translateY(-50%);color:#B5ACAC;font-size:36;">Please select a date range</p></div>');
+           }
+         </script>
+       </body>
+       </html>
+        ]]>
+    </Content>
+</Module>
