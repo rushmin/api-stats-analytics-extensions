@@ -19,6 +19,6 @@
  under the License.
 
 -->
-<artifact name="SparkscriptsMemberLifecycle" version="1.0.0" type="analytics/spark" serverRole="DataAnalyticsServer">
-    <file>member_count.xml</file>
+<artifact name="EventstreamAPITrace" version="1.0.0" type="event/stream" serverRole="DataAnalyticsServer">
+    <file>api_trace_1.0.0.json</file>
 </artifact>

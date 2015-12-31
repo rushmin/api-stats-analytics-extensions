@@ -1,0 +1,27 @@
+{
+  "streamId": "org.wso2.api.trace:1.0.0",
+  "name": "org.wso2.api.trace",
+  "version": "1.0.0",
+  "nickName": "API Trace",
+  "description": "API Trace",
+  "metaData": [],
+  "correlationData": [],
+  "payloadData": [
+    {
+      "name": "timestamp",
+      "type": "LONG"
+    },
+    {
+      "name": "origin",
+      "type": "STRING"
+    },
+    {
+      "name": "context",
+      "type": "STRING"
+    },
+    {
+      "name": "error",
+      "type": "STRING"
+    }
+  ]
+}

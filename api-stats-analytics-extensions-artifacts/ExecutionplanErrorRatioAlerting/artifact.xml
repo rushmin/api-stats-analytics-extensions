@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><artifact name="ExecutionplanErrorRatioAlerting" version="1.0.0" type="event/execution-plan" serverRole="ComplexEventProcessor">
+    <file>error_ratio_alerting.siddhiql</file>
+</artifact>

@@ -22,14 +22,24 @@
 <artifacts>
     <artifact name="api-stats-analytics-extensions" version="1.0.0" type="carbon/application">
 
+        <dependency artifact="EventstreamAPITrace" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventstoreAPITrace" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="ExecutionplanErrorRatioAlerting" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
         <dependency artifact="GadgetAPIRequestsGraph" version="1.0.0" include="true"
-                                serverRole="DataAnalyticsServer"/>
+                              serverRole="DataAnalyticsServer"/>
         <dependency artifact="GadgetAPIErrorsGraph" version="1.0.0" include="true"
-                                                        serverRole="DataAnalyticsServer"/>
+                              serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="SparkscriptAPIUsageSummary" version="1.0.0" include="true"
-                                                        serverRole="DataAnalyticsServer"/>
+                              serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="DashboardAPIUsageStats" version="1.0.0" include="true" serverRole="DataAnalyticsServer"/>
+        <dependency artifact="DashboardAPIUsageStats" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
     </artifact>
 </artifacts>

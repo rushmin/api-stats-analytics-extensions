@@ -1,0 +1,32 @@
+/* Enter a unique ExecutionPlan */
+@Plan:name('ErrorRatioAlerting')
+
+/* Enter a unique description for ExecutionPlan */
+-- @Plan:description('Execution plan to alert about the error ratios which exceeds a give limit')
+
+@Import('org.wso2.api.trace:1.0.0')
+define stream trace (timestamp long, origin string, context string, error string);
+
+@Import('org.wso2.apimgt.statistics.request:1.0.0')
+define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
+
+
+from requests#window.time(30 sec)
+select api as name, version, context, count() as count
+group by api, version
+insert all events into request_summary;
+
+from trace[error=='TRUE']#window.time(30 sec)
+select context, count() as count
+group by context
+insert all events into error_summary;
+
+from error_summary#window.time(30 sec) as E
+  join request_summary#window.time(30 sec) as R
+  on E.context == R.context
+select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, convert(25, 'double') as threshold
+insert into ratio;
+
+from ratio[ratio > 25]
+select name, version, ratio, threshold
+insert into alert;

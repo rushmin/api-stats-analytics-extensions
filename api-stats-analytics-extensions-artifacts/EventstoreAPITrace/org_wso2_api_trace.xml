@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EventStoreConfiguration>
+  <TableSchema>
+    <ColumnDefinition>
+      <Name>timestamp</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>LONG</Type>
+    </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>origin</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>STRING</Type>
+    </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>context</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>STRING</Type>
+    </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>error</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>STRING</Type>
+    </ColumnDefinition>
+  </TableSchema>
+  <Source>
+    <StreamId>org.wso2.api.trace:1.0.0</StreamId>
+  </Source>
+  <RecordStoreName>EVENT_STORE</RecordStoreName>
+</EventStoreConfiguration>
