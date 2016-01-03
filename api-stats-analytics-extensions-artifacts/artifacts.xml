@@ -25,7 +25,25 @@
         <dependency artifact="EventstreamAPITrace" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
+        <dependency artifact="EventstreamAPIErrorRatio" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventstreamAPIErrorRatioAlert" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
         <dependency artifact="EventstoreAPITrace" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventstoreAPIErrorRatio" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventstoreAPIErrorRatioAlert" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventpublisherAPIErrorRatio" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
+        <dependency artifact="EventpublisherAPIErrorRatioAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="ExecutionplanErrorRatioAlerting" version="1.0.0" include="true"

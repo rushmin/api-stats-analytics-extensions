@@ -10,23 +10,28 @@ define stream trace (timestamp long, origin string, context string, error string
 @Import('org.wso2.apimgt.statistics.request:1.0.0')
 define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
 
+@Export('org.wso2.api.errorRatioAlert:1.0.0')
+define stream alert (name string, version string, ratio double, threshold double);
 
-from requests#window.time(30 sec)
+@Export('org.wso2.api.errorRatio:1.0.0')
+define stream ratio (name string, version string, ratio double, threshold double);
+
+from requests#window.time(5 min)
 select api as name, version, context, count() as count
 group by api, version
 insert all events into request_summary;
 
-from trace[error=='TRUE']#window.time(30 sec)
+from trace[error=='TRUE']#window.time(5 min)
 select context, count() as count
 group by context
 insert all events into error_summary;
 
-from error_summary#window.time(30 sec) as E
-  join request_summary#window.time(30 sec) as R
+from error_summary#window.unique(context) as E
+  join request_summary#window.unique(context) as R
   on E.context == R.context
-select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, convert(25, 'double') as threshold
+select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, convert(10, 'double') as threshold
 insert into ratio;
 
-from ratio[ratio > 25]
+from ratio[ratio > threshold]
 select name, version, ratio, threshold
 insert into alert;
