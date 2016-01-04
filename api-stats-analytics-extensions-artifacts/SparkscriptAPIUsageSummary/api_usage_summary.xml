@@ -164,5 +164,5 @@
 
 
     </Script>
-    <CronExpression>29 * * * * ?</CronExpression>
+    <CronExpression>0 0/5 * 1/1 * ? *</CronExpression>
 </Analytics>

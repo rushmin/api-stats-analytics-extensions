@@ -1,0 +1,13 @@
+@Plan:name('ErrorAlertingConfig')
+
+@Plan:description('Execution plan for configuring API error alerting')
+
+@Import('org.wso2.api.errorRatioAlertThresholdConfig:1.0.0')
+define stream threshold (name string, version string, threshold double);
+
+@from(eventtable = 'analytics.table' , table.name = 'error_ratio_alert_threshold_config', indices = 'name, version')
+define table thresholdTable (name string, version string, threshold double);
+
+from threshold
+select *
+insert into thresholdTable

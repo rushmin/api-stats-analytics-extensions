@@ -1,9 +1,9 @@
 {
-  "streamId": "org.wso2.api.errorRatio:1.0.0",
-  "name": "org.wso2.api.errorRatio",
+  "streamId": "org.wso2.api.errorRatioAlertThreshold:1.0.0",
+  "name": "org.wso2.api.errorRatioAlertThresholdConfig",
   "version": "1.0.0",
-  "nickName": "API Error Ratio",
-  "description": "API Error Ratio",
+  "nickName": "API Error Ratio Alert Threshold",
+  "description": "API Error Ratio Alert Threshold",
   "metaData": [],
   "correlationData": [],
   "payloadData": [
@@ -16,7 +16,7 @@
       "type": "STRING"
     },
     {
-      "name": "ratio",
+      "name": "threshold",
       "type": "DOUBLE"
     }
   ]
