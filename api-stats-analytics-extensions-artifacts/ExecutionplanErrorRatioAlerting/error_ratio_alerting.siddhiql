@@ -8,8 +8,8 @@ define stream trace (timestamp long, origin string, context string, error string
 @Import('org.wso2.apimgt.statistics.request:1.0.0')
 define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
 
-@from(eventtable = 'analytics.table' , table.name = 'error_ratio_alert_threshold_config', indices = 'name, version')
-define table thresholdTable (name string, version string, threshold double);
+@from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_threshold_config', indices = 'id, name, version')
+define table thresholdTable (id string, name string, version string, threshold double);
 
 @Export('org.wso2.api.errorRatioAlert:1.0.0')
 define stream alert (name string, version string, ratio double, threshold double);
@@ -33,8 +33,9 @@ from error_summary#window.unique(context) as E
 select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio
 insert into ratio;
 
-from ratio#window.length(1) as R join thresholdTable as T
-    on  R.name == T.name and R.version == T.version
+from ratio#window.length(1) as R
+  join thresholdTable#window.unique(id) as T
+  on  R.name == T.name and R.version == T.version
 select R.name as name, R.version as version, R.ratio as ratio, T.threshold as threshold
 insert into ratioWithThreshold ;
 

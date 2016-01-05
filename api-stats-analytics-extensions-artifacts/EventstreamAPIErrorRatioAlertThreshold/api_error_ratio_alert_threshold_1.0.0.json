@@ -8,6 +8,10 @@
   "correlationData": [],
   "payloadData": [
     {
+      "name": "action",
+      "type": "STRING"
+    },
+    {
       "name": "name",
       "type": "STRING"
     },

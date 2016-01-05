@@ -3,11 +3,15 @@
 @Plan:description('Execution plan for configuring API error alerting')
 
 @Import('org.wso2.api.errorRatioAlertThresholdConfig:1.0.0')
-define stream threshold (name string, version string, threshold double);
+define stream threshold (action string, name string, version string, threshold double);
 
-@from(eventtable = 'analytics.table' , table.name = 'error_ratio_alert_threshold_config', indices = 'name, version')
-define table thresholdTable (name string, version string, threshold double);
+@from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_threshold_config', indices = 'id, name, version')
+define table thresholdTable (id string, name string, version string, threshold double);
 
-from threshold
-select *
-insert into thresholdTable
+from threshold[action == "add"]
+select str:concat(name, ":", version) as id, name, version, threshold
+insert into thresholdTable;
+
+from threshold[action == "delete"]
+delete thresholdTable
+  on name == name and version == version;
