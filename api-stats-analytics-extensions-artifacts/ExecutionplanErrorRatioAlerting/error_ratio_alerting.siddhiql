@@ -34,7 +34,7 @@ select R.name as name, R.version as version, (convert(E.count, 'double')/convert
 insert into ratio;
 
 from ratio#window.length(1) as R
-  join thresholdTable#window.unique(id) as T
+  join thresholdTable as T
   on  R.name == T.name and R.version == T.version
 select R.name as name, R.version as version, R.ratio as ratio, T.threshold as threshold
 insert into ratioWithThreshold ;
