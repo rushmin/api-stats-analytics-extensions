@@ -1,9 +1,9 @@
 {
-  "streamId": "org.wso2.api.errorRatioAlertThreshold:1.0.0",
-  "name": "org.wso2.api.errorRatioAlertThreshold",
+  "streamId": "org.wso2.api.errorRatioAlertQuietPeriod:1.0.0",
+  "name": "org.wso2.api.errorRatioAlertQuietPeriod",
   "version": "1.0.0",
-  "nickName": "API Error Ratio Alert Threshold",
-  "description": "API Error Ratio Alert Threshold",
+  "nickName": "API Error Ratio Alert Quiet Period",
+  "description": "API Error Ratio Alert Quiet Period",
   "metaData": [],
   "correlationData": [],
   "payloadData": [
@@ -20,8 +20,8 @@
       "type": "STRING"
     },
     {
-      "name": "threshold",
-      "type": "DOUBLE"
+      "name": "quietPeriod",
+      "type": "LONG"
     }
   ]
 }

@@ -29,6 +29,13 @@
       <EnableScoreParam>false</EnableScoreParam>
       <Type>DOUBLE</Type>
     </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>quietPeriod</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>LONG</Type>
+    </ColumnDefinition>
   </TableSchema>
   <Source>
     <StreamId>org.wso2.api.errorRatioAlert:1.0.0</StreamId>

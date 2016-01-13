@@ -22,6 +22,10 @@
     {
       "name": "threshold",
       "type": "DOUBLE"
+    },
+    {
+      "name": "quietPeriod",
+      "type": "LONG"
     }
   ]
 }

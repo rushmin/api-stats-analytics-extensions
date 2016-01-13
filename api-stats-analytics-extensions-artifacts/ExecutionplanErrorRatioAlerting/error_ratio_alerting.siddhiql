@@ -11,8 +11,11 @@ define stream requests (meta_clientType string, consumerKey string, context stri
 @from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_threshold_config', indices = 'id, name, version')
 define table thresholdTable (id string, name string, version string, threshold double);
 
+@from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_quiet_period_config', indices = 'id, name, version')
+define table quietPeriodTable (id string, name string, version string, quietPeriod long);
+
 @Export('org.wso2.api.errorRatioAlert:1.0.0')
-define stream alert (name string, version string, ratio double, threshold double);
+define stream alert (name string, version string, ratio double, threshold double, quietPeriod long);
 
 @Export('org.wso2.api.errorRatio:1.0.0')
 define stream ratio (name string, version string, ratio double);
@@ -39,7 +42,16 @@ from ratio#window.length(1) as R
 select R.name as name, R.version as version, R.ratio as ratio, T.threshold as threshold
 insert into ratioWithThreshold ;
 
-
 from ratioWithThreshold[ratio > threshold]
 select name, version, ratio, threshold
-insert into alert;
+insert into alertCandidate;
+
+from alertCandidate#window.length(1) as A
+  join quietPeriodTable as Q
+  on  A.name == Q.name and A.version == Q.version
+select A.name as name, A.version as version, A.ratio as ratio, A.threshold as threshold, Q.quietPeriod as quietPeriod
+insert into alertCandidateWithQuietPeriod ;
+
+from alertCandidateWithQuietPeriod#window.custom:uniqueTimeWindow(quietPeriod, name, version)
+select *
+insert into alert
