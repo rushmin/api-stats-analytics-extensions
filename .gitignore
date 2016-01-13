@@ -9,3 +9,7 @@ buildNumber.properties
 
 #custom
 deploy.sh
+
+#IDEA
+.idea/
+*.iml
