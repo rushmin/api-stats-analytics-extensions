@@ -7,9 +7,6 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 
-#custom
-deploy.sh
-
 #IDEA
 .idea/
 *.iml
