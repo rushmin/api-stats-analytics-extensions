@@ -2,11 +2,8 @@
 
 @Plan:description('Execution plan for alerting about the error ratios which exceeds a give limit')
 
-@Import('org.wso2.api.trace:1.0.0')
-define stream trace (timestamp long, origin string, context string, error string);
-
-@Import('org.wso2.apimgt.statistics.request:1.0.0')
-define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
+@Import('org.wso2.api.errorRatio:1.0.0')
+define stream ratio (name string, version string, ratio double);
 
 @from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_threshold_config', indices = 'id, name, version')
 define table thresholdTable (id string, name string, version string, threshold double);
@@ -16,25 +13,6 @@ define table quietPeriodTable (id string, name string, version string, quietPeri
 
 @Export('org.wso2.api.errorRatioAlert:1.0.0')
 define stream alert (name string, version string, ratio double, threshold double, quietPeriod long);
-
-@Export('org.wso2.api.errorRatio:1.0.0')
-define stream ratio (name string, version string, ratio double);
-
-from requests#window.time(5 min)
-select api as name, version, context, count() as count
-group by api, version
-insert all events into request_summary;
-
-from trace[error=='TRUE']#window.time(5 min)
-select context, count() as count
-group by context
-insert all events into error_summary;
-
-from error_summary#window.unique(context) as E
-  join request_summary#window.unique(context) as R
-  on E.context == R.context
-select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio
-insert into ratio;
 
 from ratio#window.length(1) as R
   join thresholdTable as T

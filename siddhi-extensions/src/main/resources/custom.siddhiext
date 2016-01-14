@@ -1,1 +1,1 @@
-uniqueTimeWindow=org.wso2.analytics.ext.UniqueTimeWindow
+uniqueTimeWindow=org.wso2.analytics.siddhi.UniqueTimeWindow

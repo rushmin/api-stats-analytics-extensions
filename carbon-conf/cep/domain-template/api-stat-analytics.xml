@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2015, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<templateDomain name="APIStatsAnalytics">
+    <description>Templates related to API stats analytics</description>
+    <templates>
+        <template name="Global Ratio Calculation">
+            <description>To calculate erros : requests ratio globally for all APIs</description>
+            <executionPlan>
+                <![CDATA[
+
+                @Plan:name('GlobalRatioCalculation')
+
+                @Plan:description('Execution plan to calculate errors : requests globally')
+
+                @Import('org.wso2.api.trace:1.0.0')
+                define stream trace (timestamp long, origin string, context string, error string);
+
+                @Import('org.wso2.apimgt.statistics.request:1.0.0')
+                define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
+
+                @Export('org.wso2.api.errorRatio:1.0.0')
+                define stream ratio (name string, version string, ratio double);
+
+                from requests#window.time($timeWindow)
+                select api as name, version, context, count() as count
+                group by api, version
+                insert all events into request_summary;
+
+                from trace[error=='TRUE']#window.time($timeWindow)
+                select context, count() as count
+                group by context
+                insert all events into error_summary;
+
+                from error_summary#window.unique(context) as E
+                  join request_summary#window.unique(context) as R
+                  on E.context == R.context
+                select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio
+                insert into ratio;
+                 ]]>
+            </executionPlan>
+            <parameters>
+                <parameter name="timeWindow" type="string">
+                    <displayName>Time window</displayName>
+                    <description>Time window for ratio calculation</description>
+                    <defaultValue>5 min</defaultValue>
+                </parameter>
+            </parameters>
+        </template>
+        <template name="Per API Ratio Calculation">
+            <description>To calculate erros : requests ratio on per API basis</description>
+            <executionPlan>
+                <![CDATA[
+
+                @Plan:name('PerAPIRatioCalculation')
+
+                @Plan:description('Execution plan to calculate errors : requests on a per API basis')
+
+                @Import('org.wso2.api.trace:1.0.0')
+                define stream trace (timestamp long, origin string, context string, error string);
+
+                @Import('org.wso2.apimgt.statistics.request:1.0.0')
+                define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
+
+                @Export('org.wso2.api.errorRatio:1.0.0')
+                define stream ratio (name string, version string, ratio double);
+
+                from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
+                select api as name, version, context, count() as count
+                group by api, version
+                insert all events into request_summary;
+
+                from trace[error=='TRUE' and context=='$apiContext']#window.time($timeWindow)
+                select context, count() as count
+                group by context
+                insert all events into error_summary;
+
+                from error_summary#window.unique(context) as E
+                  join request_summary#window.unique(context) as R
+                  on E.context == R.context
+                select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio
+                insert into ratio;
+                 ]]>
+            </executionPlan>
+            <parameters>
+                <parameter name="timeWindow" type="string">
+                    <displayName>Time window</displayName>
+                    <description>Time window for ratio calculation</description>
+                    <defaultValue>5 min</defaultValue>
+                </parameter>
+                <parameter name="apiName" type="string">
+                    <displayName>API Name</displayName>
+                    <description>Name of the API</description>
+                    <defaultValue/>
+                </parameter>
+                <parameter name="apiVersion" type="string">
+                    <displayName>API Version</displayName>
+                    <description>Version of the API</description>
+                    <defaultValue/>
+                </parameter>
+                <parameter name="apiContext" type="string">
+                    <displayName>API Context</displayName>
+                    <description>Context of the API</description>
+                    <defaultValue/>
+                </parameter>
+            </parameters>
+        </template>
+    </templates>
+    <streams/>
+</templateDomain>

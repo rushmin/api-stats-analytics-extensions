@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>spark-udf</module>
     <module>siddhi-extensions</module>
     <module>api-stats-analytics-extensions-car</module>
   </modules>
