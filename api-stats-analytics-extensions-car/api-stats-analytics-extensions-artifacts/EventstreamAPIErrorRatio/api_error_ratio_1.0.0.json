@@ -18,6 +18,10 @@
     {
       "name": "ratio",
       "type": "DOUBLE"
+    },
+    {
+      "name": "window",
+      "type": "STRING"
     }
   ]
 }

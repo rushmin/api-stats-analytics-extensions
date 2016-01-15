@@ -23,6 +23,13 @@
       <Type>DOUBLE</Type>
     </ColumnDefinition>
     <ColumnDefinition>
+      <Name>window</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>STRING</Type>
+    </ColumnDefinition>
+    <ColumnDefinition>
       <Name>threshold</Name>
       <EnableIndexing>false</EnableIndexing>
       <IsPrimaryKey>false</IsPrimaryKey>

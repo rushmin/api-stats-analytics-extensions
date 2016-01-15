@@ -3,7 +3,7 @@
 @Plan:description('Execution plan for alerting about the error ratios which exceeds a give limit')
 
 @Import('org.wso2.api.errorRatio:1.0.0')
-define stream ratio (name string, version string, ratio double);
+define stream ratio (name string, version string, ratio double, window string);
 
 @from(eventtable = 'rdbms' , datasource.name = 'WSO2AM_ANALYTICS_EXT_CONFIG_DB', table.name = 'error_ratio_alert_threshold_config', indices = 'id, name, version')
 define table thresholdTable (id string, name string, version string, threshold double);
@@ -12,22 +12,22 @@ define table thresholdTable (id string, name string, version string, threshold d
 define table quietPeriodTable (id string, name string, version string, quietPeriod long);
 
 @Export('org.wso2.api.errorRatioAlert:1.0.0')
-define stream alert (name string, version string, ratio double, threshold double, quietPeriod long);
+define stream alert (name string, version string, ratio double, window string, threshold double, quietPeriod long);
 
 from ratio#window.length(1) as R
   join thresholdTable as T
   on  R.name == T.name and R.version == T.version
-select R.name as name, R.version as version, R.ratio as ratio, T.threshold as threshold
+select R.name as name, R.version as version, R.ratio as ratio, R.window as window, T.threshold as threshold
 insert into ratioWithThreshold ;
 
 from ratioWithThreshold[ratio > threshold]
-select name, version, ratio, threshold
+select name, version, ratio, window, threshold
 insert into alertCandidate;
 
 from alertCandidate#window.length(1) as A
   join quietPeriodTable as Q
   on  A.name == Q.name and A.version == Q.version
-select A.name as name, A.version as version, A.ratio as ratio, A.threshold as threshold, Q.quietPeriod as quietPeriod
+select A.name as name, A.version as version, A.ratio as ratio, A.window, A.threshold as threshold, Q.quietPeriod as quietPeriod
 insert into alertCandidateWithQuietPeriod ;
 
 from alertCandidateWithQuietPeriod#window.custom:uniqueTimeWindow(quietPeriod, name, version)

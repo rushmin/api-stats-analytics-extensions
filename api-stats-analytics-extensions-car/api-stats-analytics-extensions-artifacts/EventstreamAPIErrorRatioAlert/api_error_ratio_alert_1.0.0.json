@@ -20,6 +20,10 @@
       "type": "DOUBLE"
     },
     {
+      "name": "window",
+      "type": "STRING"
+    },
+    {
       "name": "threshold",
       "type": "DOUBLE"
     },
