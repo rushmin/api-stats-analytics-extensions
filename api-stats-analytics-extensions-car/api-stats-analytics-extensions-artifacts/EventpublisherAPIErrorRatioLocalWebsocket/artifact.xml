@@ -19,6 +19,6 @@
  under the License.
 
 -->
-<artifact name="EventpublisherAPIErrorRatio" version="1.0.0" type="event/publisher" serverRole="DataAnalyticsServer">
-    <file>api_error_ratio.xml</file>
+<artifact name="EventpublisherAPIErrorRatioLocalWebsocket" version="1.0.0" type="event/publisher" serverRole="DataAnalyticsServer">
+    <file>api_error_ratio_local_websocket.xml</file>
 </artifact>

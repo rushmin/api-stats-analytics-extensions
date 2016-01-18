@@ -46,10 +46,10 @@
         <dependency artifact="EventstoreAPIErrorRatioAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="EventpublisherAPIErrorRatio" version="1.0.0" include="true"
+        <dependency artifact="EventpublisherAPIErrorRatioLocalWebsocket" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="EventpublisherAPIErrorRatioAlert" version="1.0.0" include="true"
+        <dependency artifact="EventpublisherAPIErrorRatioLocalWebsocketAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="EventpublisherAPIErrorRatioEmailAlert" version="1.0.0" include="true"
