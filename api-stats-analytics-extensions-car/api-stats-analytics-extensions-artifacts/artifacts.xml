@@ -52,6 +52,9 @@
         <dependency artifact="EventpublisherAPIErrorRatioAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
+        <dependency artifact="EventpublisherAPIErrorRatioEmailAlert" version="1.0.0" include="true"
+                              serverRole="DataAnalyticsServer"/>
+
         <dependency artifact="ExecutionplanErrorRatioAlerting" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 

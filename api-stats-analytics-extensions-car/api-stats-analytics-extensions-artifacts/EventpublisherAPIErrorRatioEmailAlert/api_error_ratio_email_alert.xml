@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eventPublisher name="APIErrorRatioEmailAlertPublisher" statistics="disable"
+  trace="disable" xmlns="http://wso2.org/carbon/eventpublisher">
+  <from streamName="org.wso2.api.errorRatioAlert" version="1.0.0"/>
+  <mapping customMapping="enable" type="text">
+    <inline>
+    errors : requests ratio of the API '{{name}}:{{version}}' ( {{ratio}}% ), exceeded the threshold ( {{threshold}}% ) in last {{window}}(s).
+</inline>
+  </mapping>
+  <to eventAdapterType="email">
+    <property name="email.address">rushmin@wso2.com</property>
+    <property name="email.type">text/html</property>
+    <property name="email.subject">WSO2 DAS Alert !!</property>
+  </to>
+</eventPublisher>
