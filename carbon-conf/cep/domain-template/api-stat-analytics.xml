@@ -34,7 +34,7 @@
                 define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
 
                 @Export('org.wso2.api.errorRatio:1.0.0')
-                define stream ratio (name string, version string, ratio double, window string);
+                define stream ratio (name string, version string, ratio double, window string, threshold double, quietPeriod long);
 
                 from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
                 select api as name, version, context, count() as count
@@ -49,16 +49,11 @@
                 from error_summary#window.unique(context) as E
                   join request_summary#window.unique(context) as R
                   on E.context == R.context
-                select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, '$timeWindow' as window
+                select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, '$timeWindow' as window, convert('$alertThreshold','double') as threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
                 insert into ratio;
                  ]]>
             </executionPlan>
             <parameters>
-                <parameter name="timeWindow" type="string">
-                    <displayName>Time window</displayName>
-                    <description>Time window for ratio calculation</description>
-                    <defaultValue>5 min</defaultValue>
-                </parameter>
                 <parameter name="apiName" type="string">
                     <displayName>API Name</displayName>
                     <description>Name of the API</description>
@@ -73,6 +68,21 @@
                     <displayName>API Context</displayName>
                     <description>Context of the API</description>
                     <defaultValue/>
+                </parameter>
+                <parameter name="timeWindow" type="string">
+                    <displayName>Time window</displayName>
+                    <description>Time window for ratio calculation</description>
+                    <defaultValue>5 min</defaultValue>
+                </parameter>
+                <parameter name="alertThreshold" type="double">
+                    <displayName>Ratio alert threshold</displayName>
+                    <description>requests : erros ratio threshold for alerting. e.g. 1.0</description>
+                    <defaultValue/>
+                </parameter>
+                <parameter name="alertQuietPeriod" type="long">
+                    <displayName>Alert quiet period</displayName>
+                    <description>The time period in milliseconds which alert should be suppressed for, if an alert has already been sent. e.g. 300000</description>
+                    <defaultValue>300000</defaultValue>
                 </parameter>
             </parameters>
         </template>

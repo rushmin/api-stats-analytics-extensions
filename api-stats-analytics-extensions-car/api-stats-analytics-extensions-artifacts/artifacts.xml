@@ -31,12 +31,6 @@
         <dependency artifact="EventstreamAPIErrorRatioAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="EventstreamAPIErrorRatioAlertThreshold" version="1.0.0" include="true"
-                              serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="EventstreamAPIErrorRatioAlertQuietPeriod" version="1.0.0" include="true"
-                              serverRole="DataAnalyticsServer"/>
-
         <dependency artifact="EventstoreAPITrace" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
@@ -56,9 +50,6 @@
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="ExecutionplanErrorRatioAlerting" version="1.0.0" include="true"
-                              serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="ExecutionplanErrorRatioAlertingConfig" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="GadgetAPIRequestsGraph" version="1.0.0" include="true"

@@ -29,6 +29,20 @@
       <EnableScoreParam>false</EnableScoreParam>
       <Type>STRING</Type>
     </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>threshold</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>DOUBLE</Type>
+    </ColumnDefinition>
+    <ColumnDefinition>
+      <Name>quietPeriod</Name>
+      <EnableIndexing>false</EnableIndexing>
+      <IsPrimaryKey>false</IsPrimaryKey>
+      <EnableScoreParam>false</EnableScoreParam>
+      <Type>LONG</Type>
+    </ColumnDefinition>
   </TableSchema>
   <Source>
     <StreamId>org.wso2.api.errorRatio:1.0.0</StreamId>
