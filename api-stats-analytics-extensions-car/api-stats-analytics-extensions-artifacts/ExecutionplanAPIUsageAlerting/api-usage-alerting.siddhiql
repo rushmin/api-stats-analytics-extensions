@@ -8,6 +8,6 @@ define stream summary (name string, version string, context string, request_coun
 @Export('org.wso2.api.errorRatioAlert:1.0.0')
 define stream alert (name string, version string, context string, ratio double, window string, threshold double, quietPeriod long);
 
-from summary[(convert(error_count, 'double') / convert(request_count, 'double')) * 100 > error_ratio_threshold]#window.custom:uniqueTimeWindow(quietPeriod, name, version)
-select name, version, context, (convert(error_count, 'double') / convert(request_count, 'double')) * 100 as ratio, window, error_ratio_threshold as threshold, quietPeriod
+from summary[(convert(error_count, 'double') / convert(math:max(1,request_count), 'double')) * 100 > error_ratio_threshold]#window.custom:uniqueTimeWindow(quietPeriod, name, version)
+select name, version, context, (convert(error_count, 'double') / convert(math:max(1,request_count), 'double')) * 100 as ratio, window, error_ratio_threshold as threshold, quietPeriod
 insert into alert

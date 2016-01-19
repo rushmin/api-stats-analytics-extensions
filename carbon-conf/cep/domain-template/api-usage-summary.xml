@@ -42,9 +42,9 @@
 
                 from trace[error=='TRUE' and context=='$apiContext']#window.time($timeWindow)
                 select context, count() as count
-                insert all events into error_summary;
+                insert current events into error_summary;
 
-                from error_summary#window.unique(context) as E
+                from error_summary#window.unique(context) as E unidirectional
                   join request_summary#window.unique(context) as R
                   on E.context == R.context
                 select R.name as name, R.version as version, R.context as context, R.count as request_count, E.count as error_count, '$timeWindow' as window, convert('$minRequestsThreshold','long') as min_requests_threshold, convert('$maxRequestsThreshold','long') as max_requests_threshold, convert('$errorRatioThreshold','double') as error_ratio_threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
