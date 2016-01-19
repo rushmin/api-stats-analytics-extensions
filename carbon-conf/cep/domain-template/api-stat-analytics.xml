@@ -38,12 +38,10 @@
 
                 from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
                 select api as name, version, context, count() as count
-                group by api, version
                 insert all events into request_summary;
 
                 from trace[error=='TRUE' and context=='$apiContext']#window.time($timeWindow)
                 select context, count() as count
-                group by context
                 insert all events into error_summary;
 
                 from error_summary#window.unique(context) as E
