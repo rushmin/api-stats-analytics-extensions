@@ -19,6 +19,6 @@
  under the License.
 
 -->
-<artifact name="EventstoreAPIErrorRatioAlert" version="1.0.0" type="analytics/eventstore" serverRole="DataAnalyticsServer">
-    <file>org_wso2_api_errorRatioAlert.xml</file>
+<artifact name="EventpublisherAPISummaryLocalWebsocket" version="1.0.0" type="event/publisher" serverRole="DataAnalyticsServer">
+    <file>api_summary_local_websocket.xml</file>
 </artifact>

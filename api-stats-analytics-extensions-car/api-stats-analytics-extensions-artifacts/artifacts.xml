@@ -25,7 +25,7 @@
         <dependency artifact="EventstreamAPITrace" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="EventstreamAPIErrorRatio" version="1.0.0" include="true"
+        <dependency artifact="EventstreamAPISummary" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="EventstreamAPIErrorRatioAlert" version="1.0.0" include="true"
@@ -34,13 +34,7 @@
         <dependency artifact="EventstoreAPITrace" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="EventstoreAPIErrorRatio" version="1.0.0" include="true"
-                              serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="EventstoreAPIErrorRatioAlert" version="1.0.0" include="true"
-                              serverRole="DataAnalyticsServer"/>
-
-        <dependency artifact="EventpublisherAPIErrorRatioLocalWebsocket" version="1.0.0" include="true"
+        <dependency artifact="EventpublisherAPISummaryLocalWebsocket" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="EventpublisherAPIErrorRatioLocalWebsocketAlert" version="1.0.0" include="true"
@@ -49,7 +43,7 @@
         <dependency artifact="EventpublisherAPIErrorRatioEmailAlert" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
-        <dependency artifact="ExecutionplanErrorRatioAlerting" version="1.0.0" include="true"
+        <dependency artifact="ExecutionplanAPIUsageAlerting" version="1.0.0" include="true"
                               serverRole="DataAnalyticsServer"/>
 
         <dependency artifact="GadgetAPIRequestsGraph" version="1.0.0" include="true"

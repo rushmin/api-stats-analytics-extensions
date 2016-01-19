@@ -4,7 +4,7 @@
   <from streamName="org.wso2.api.errorRatioAlert" version="1.0.0"/>
   <mapping customMapping="enable" type="text">
     <inline>
-    errors : requests ratio of the API '{{name}}:{{version}}' ( {{ratio}}% ), exceeded the threshold ( {{threshold}}% ) in last {{window}}(s).
+    errors : requests ratio ( {{ratio}}% ) of the API '{{name}}:{{version}}' ({{context}}), exceeded the threshold ( {{threshold}}% ) in last {{window}}(s).
 </inline>
   </mapping>
   <to eventAdapterType="email">

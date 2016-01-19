@@ -1,9 +1,9 @@
 {
-  "streamId": "org.wso2.api.errorRatioAlert:1.0.0",
-  "name": "org.wso2.api.errorRatioAlert",
+  "streamId": "org.wso2.api.summary:1.0.0",
+  "name": "org.wso2.api.summary",
   "version": "1.0.0",
-  "nickName": "API Error Ratio Alert",
-  "description": "API Error Ratio Alert",
+  "nickName": "API Summaryy",
+  "description": "API Summary",
   "metaData": [],
   "correlationData": [],
   "payloadData": [
@@ -20,15 +20,27 @@
       "type": "STRING"
     },
     {
-      "name": "ratio",
-      "type": "DOUBLE"
+      "name": "request_count",
+      "type": "LONG"
+    },
+    {
+      "name": "error_count",
+      "type": "LONG"
     },
     {
       "name": "window",
       "type": "STRING"
     },
     {
-      "name": "threshold",
+      "name": "min_requests_threshold",
+      "type": "LONG"
+    },
+    {
+      "name": "max_requests_threshold",
+      "type": "LONG"
+    },
+    {
+      "name": "error_ratio_threshold",
       "type": "DOUBLE"
     },
     {

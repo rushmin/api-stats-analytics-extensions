@@ -15,17 +15,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<templateDomain name="APIStatsAnalytics">
+<templateDomain name="APIUsageSummary">
     <description>Templates related to API stats analytics</description>
     <templates>
-        <template name="Per API Ratio Calculation">
-            <description>To calculate erros : requests ratio on per API basis</description>
+        <template name="Summary Calculation">
+            <description>Calculates summary for the specified API</description>
             <executionPlan>
                 <![CDATA[
 
-                @Plan:name('PerAPIRatioCalculation')
+                @Plan:name('APIUsageSummary')
 
-                @Plan:description('Execution plan to calculate errors : requests on a per API basis')
+                @Plan:description('Calculates summary for the API $apiName:$apiVersion ($apiContext)')
 
                 @Import('org.wso2.api.trace:1.0.0')
                 define stream trace (timestamp long, origin string, context string, error string);
@@ -33,8 +33,8 @@
                 @Import('org.wso2.apimgt.statistics.request:1.0.0')
                 define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
 
-                @Export('org.wso2.api.errorRatio:1.0.0')
-                define stream ratio (name string, version string, ratio double, window string, threshold double, quietPeriod long);
+                @Export('org.wso2.api.summary:1.0.0')
+                define stream summary (name string, version string, context string, request_count long, error_count long, window string, min_requests_threshold long, max_requests_threshold long, error_ratio_threshold double, quietPeriod long);
 
                 from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
                 select api as name, version, context, count() as count
@@ -47,8 +47,8 @@
                 from error_summary#window.unique(context) as E
                   join request_summary#window.unique(context) as R
                   on E.context == R.context
-                select R.name as name, R.version as version, (convert(E.count, 'double')/convert(R.count, 'double'))*100 as ratio, '$timeWindow' as window, convert('$alertThreshold','double') as threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
-                insert into ratio;
+                select R.name as name, R.version as version, R.context as context, R.count as request_count, E.count as error_count, '$timeWindow' as window, convert('$minRequestsThreshold','long') as min_requests_threshold, convert('$maxRequestsThreshold','long') as max_requests_threshold, convert('$errorRatioThreshold','double') as error_ratio_threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
+                insert into summary;
                  ]]>
             </executionPlan>
             <parameters>
@@ -72,9 +72,19 @@
                     <description>Time window for ratio calculation</description>
                     <defaultValue>5 min</defaultValue>
                 </parameter>
-                <parameter name="alertThreshold" type="double">
-                    <displayName>Ratio alert threshold</displayName>
-                    <description>requests : erros ratio threshold for alerting. e.g. 1.0</description>
+                <parameter name="minRequestsThreshold" type="long">
+                    <displayName>Min requests threshold</displayName>
+                    <description>Minimum requests threshold for the time window</description>
+                    <defaultValue/>
+                </parameter>
+                <parameter name="maxRequestsThreshold" type="long">
+                    <displayName>Max requests threshold</displayName>
+                    <description>Maximum requests threshold for the time window</description>
+                    <defaultValue/>
+                </parameter>
+                <parameter name="errorRatioThreshold" type="double">
+                    <displayName>Error ratio threshold</displayName>
+                    <description>requests : erros ratio threshold e.g. 1.0</description>
                     <defaultValue/>
                 </parameter>
                 <parameter name="alertQuietPeriod" type="long">
