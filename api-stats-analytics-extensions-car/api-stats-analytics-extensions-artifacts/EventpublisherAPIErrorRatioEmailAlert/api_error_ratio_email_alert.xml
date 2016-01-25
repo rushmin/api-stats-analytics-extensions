@@ -6,12 +6,13 @@
     <inline>
     <![CDATA[
     <h3>Error Ratio Alert</h3>
-    Error ratio : {{ratio}}%<br/><br/>
     API name : {{name}}<br/><br/>
     API version : {{version}}<br/><br/>
     API context : {{context}}<br/><br/>
-    Threshold : {{threshold}}%<br/><br/>
+    Error ratio : {{ratio}}%<br/><br/>
+    Most recent error timestamp : {{most_recent_error_timestamp}}<br/><br/>
     Time window : last {{window}}(s)<br/><br/>
+    Threshold : {{threshold}}%<br/><br/>
     ]]>
 </inline>
   </mapping>

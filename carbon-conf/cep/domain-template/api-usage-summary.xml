@@ -34,20 +34,20 @@
                 define stream requests (meta_clientType string, consumerKey string, context string, api_version string, api string, resourcePath string, method string, version string, request int, requestTime long, userId string, tenantDomain string, hostName string, apiPublisher string, applicationName string, applicationId string, userAgent string, tier string);
 
                 @Export('org.wso2.api.summary:1.0.0')
-                define stream summary (name string, version string, context string, request_count long, error_count long, window string, min_requests_threshold long, max_requests_threshold long, error_ratio_threshold double, quietPeriod long);
+                define stream summary (name string, version string, context string, request_count long, error_count long, most_recent_error_timestamp long, window string, min_requests_threshold long, max_requests_threshold long, error_ratio_threshold double, quietPeriod long);
 
                 from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
                 select api as name, version, context, count() as count
                 insert all events into request_summary;
 
                 from trace[error=='TRUE' and context=='$apiContext']#window.time($timeWindow)
-                select context, count() as count
+                select context, count() as count, time:timestampInMilliseconds() as most_recent_error_timestamp
                 insert current events into error_summary;
 
                 from error_summary#window.unique(context) as E unidirectional
                   join request_summary#window.unique(context) as R
                   on E.context == R.context
-                select R.name as name, R.version as version, R.context as context, R.count as request_count, E.count as error_count, '$timeWindow' as window, convert('$minRequestsThreshold','long') as min_requests_threshold, convert('$maxRequestsThreshold','long') as max_requests_threshold, convert('$errorRatioThreshold','double') as error_ratio_threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
+                select R.name as name, R.version as version, R.context as context, R.count as request_count, E.count as error_count, E.most_recent_error_timestamp, '$timeWindow' as window, convert('$minRequestsThreshold','long') as min_requests_threshold, convert('$maxRequestsThreshold','long') as max_requests_threshold, convert('$errorRatioThreshold','double') as error_ratio_threshold, convert('$alertQuietPeriod', 'long') as quietPeriod
                 insert into summary;
                  ]]>
             </executionPlan>

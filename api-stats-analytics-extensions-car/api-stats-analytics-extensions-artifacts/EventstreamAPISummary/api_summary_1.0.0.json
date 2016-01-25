@@ -28,6 +28,10 @@
       "type": "LONG"
     },
     {
+      "name": "most_recent_error_timestamp",
+      "type": "LONG"
+    },
+    {
       "name": "window",
       "type": "STRING"
     },
