@@ -4,12 +4,20 @@
   <from streamName="org.wso2.api.errorRatioAlert" version="1.0.0"/>
   <mapping customMapping="enable" type="text">
     <inline>
-    errors : requests ratio ( {{ratio}}% ) of the API '{{name}}:{{version}}' ({{context}}), exceeded the threshold ( {{threshold}}% ) in last {{window}}(s).
+    <![CDATA[
+    <h3>Error Ratio Alert</h3>
+    Error ratio : {{ratio}}%<br/><br/>
+    API name : {{name}}<br/><br/>
+    API version : {{version}}<br/><br/>
+    API context : {{context}}<br/><br/>
+    Threshold : {{threshold}}%<br/><br/>
+    Time window : last {{window}}(s)<br/><br/>
+    ]]>
 </inline>
   </mapping>
   <to eventAdapterType="email">
     <property name="email.address">rushmin@wso2.com</property>
     <property name="email.type">text/html</property>
-    <property name="email.subject">WSO2 DAS Alert !!</property>
+    <property name="email.subject">[ALERT] ESB API Invocation</property>
   </to>
 </eventPublisher>
