@@ -3,28 +3,28 @@
   <TableSchema>
     <ColumnDefinition>
       <Name>timestamp</Name>
-      <EnableIndexing>false</EnableIndexing>
+      <EnableIndexing>true</EnableIndexing>
       <IsPrimaryKey>false</IsPrimaryKey>
       <EnableScoreParam>false</EnableScoreParam>
       <Type>LONG</Type>
     </ColumnDefinition>
     <ColumnDefinition>
       <Name>origin</Name>
-      <EnableIndexing>false</EnableIndexing>
+      <EnableIndexing>true</EnableIndexing>
       <IsPrimaryKey>false</IsPrimaryKey>
       <EnableScoreParam>false</EnableScoreParam>
       <Type>STRING</Type>
     </ColumnDefinition>
     <ColumnDefinition>
       <Name>context</Name>
-      <EnableIndexing>false</EnableIndexing>
+      <EnableIndexing>true</EnableIndexing>
       <IsPrimaryKey>false</IsPrimaryKey>
       <EnableScoreParam>false</EnableScoreParam>
       <Type>STRING</Type>
     </ColumnDefinition>
     <ColumnDefinition>
       <Name>error</Name>
-      <EnableIndexing>false</EnableIndexing>
+      <EnableIndexing>true</EnableIndexing>
       <IsPrimaryKey>false</IsPrimaryKey>
       <EnableScoreParam>false</EnableScoreParam>
       <Type>STRING</Type>

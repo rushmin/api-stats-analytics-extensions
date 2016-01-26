@@ -24,8 +24,16 @@
       "type": "DOUBLE"
     },
     {
-      "name": "most_recent_error_timestamp",
+      "name": "error_count",
       "type": "LONG"
+    },
+    {
+      "name": "request_count",
+      "type": "LONG"
+    },
+    {
+      "name": "most_recent_error_timestamp",
+      "type": "STRING"
     },
     {
       "name": "window",
