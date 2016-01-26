@@ -36,12 +36,12 @@
                 @Export('org.wso2.api.summary:1.0.0')
                 define stream summary (name string, version string, context string, request_count long, error_count long, most_recent_error_timestamp long, window string, min_requests_threshold long, max_requests_threshold long, error_ratio_threshold double, quietPeriod long);
 
-                from requests[api=='$apiName' and version=='$apiVersion']#window.time($timeWindow)
+                from requests[api=='$apiName' and version=='$apiVersion']#window.externalTime(requestTime, $timeWindow)
                 select api as name, version, context, count() as count
                 insert all events into request_summary;
 
-                from trace[error=='TRUE' and context=='$apiContext']#window.time($timeWindow)
-                select context, count() as count, time:timestampInMilliseconds() as most_recent_error_timestamp
+                from trace[error=='TRUE' and context=='$apiContext']#window.externalTime(timestamp, $timeWindow)
+                select context, count() as count, max(timestamp) as most_recent_error_timestamp
                 insert current events into error_summary;
 
                 from error_summary#window.unique(context) as E unidirectional
